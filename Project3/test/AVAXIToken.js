@@ -17,9 +17,9 @@ describe("AVAXITokenMint", function () {
     it("Should set the correct name, symbol, and owner", async function () {
       // Check the initial values after deployment
       expect(await token.tokenName()).to.equal(
-        "Eth Proof Intermediate Module 3 Token"
+        "AVAX Intermediate Module 3 Token"
       );
-      expect(await token.tokenSymbol()).to.equal("EIM");
+      expect(await token.tokenSymbol()).to.equal("AVIM");
       expect(await token.owner()).to.equal(owner.address);
     });
   });
