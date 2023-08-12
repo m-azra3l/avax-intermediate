@@ -18,11 +18,6 @@ async function main() {
     export const tokenAddress = '${degen.address}'
   `);
 
-  console.log("Kindly await Snowtrace's acknowledgment of the contract deployment.");
-
-  // Sleep action
-  await new Promise(resolve => setTimeout(resolve, 10000));
-
   // Run verification on the contract deployment
   // yarn hardhat verify your-contract-address --network fuji
 }
