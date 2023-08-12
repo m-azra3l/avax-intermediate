@@ -1,27 +1,30 @@
 const hre = require("hardhat");
+const fs = require('fs');
 
 async function main() {
 
-  const DegenToken = await hre.ethers.deployContract("DegenToken");
+  // Get the Points smart contract
+  const Degen = await hre.ethers.getContractFactory("DegenToken");
 
-  await DegenToken.waitForDeployment();
+  // Deploy it
+  const degen = await Degen.deploy();
+  await degen.deployed();
 
-  console.log(`DegenToken deployed to`, await DegenToken.getAddress());
+  // Display the contract address
+  console.log(`Degen token deployed to ${degen.address}`);
 
-  console.log("Sleeping.....");
-  // Wait for Snowtrace to notice that the contract has been deployed
-  await sleep(10000);
+  // export the address
+  fs.writeFileSync('scripts/address.js', `
+    export const tokenAddress = '${degen.address}'
+  `);
 
-  // Verify the DegenToken Bank  contract after deploying
-  await hre.run("verify:verify", {
-    contract: "contracts/DegenToken.sol:DegenToken",
-    address: DegenToken.target,
-    constructorArguments: [],
-  });
-}
+  console.log("Kindly await Snowtrace's acknowledgment of the contract deployment.");
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  // Sleep action
+  await new Promise(resolve => setTimeout(resolve, 10000));
+
+  // Run verification on the contract deployment
+  // yarn hardhat verify your-contract-address --network fuji
 }
 
 // We recommend this pattern to be able to use async/await everywhere

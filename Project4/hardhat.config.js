@@ -1,5 +1,5 @@
 require("@nomicfoundation/hardhat-toolbox");
-require("dotenv").config({ path: ".env" });
+require('dotenv').config();
 
 const FORK_FUJI = false;
 const FORK_MAINNET = false;
@@ -30,8 +30,7 @@ module.exports = {
       gasPrice: 225000000000,
       chainId: 43113,
       accounts: [
-        // YOUR PRIVATE KEY HERE
-        process.env.PRIVATE_KEY,
+        process.env.WALLET_PRIVATE_KEY, // we use a .env file to hide our wallets private key
       ],
     },
     mainnet: {
@@ -39,13 +38,12 @@ module.exports = {
       gasPrice: 225000000000,
       chainId: 43114,
       accounts: [
-        // YOUR PRIVATE KEY HERE
-        process.env.PRIVATE_KEY,
+        process.env.WALLET_PRIVATE_KEY,
       ],
     },
   },
 
   etherscan: {
-    apiKey: process.env.SNOWTRACE_API,
+    apiKey: process.env.SNOWTRACE_API_KEY, // we use an .env file to hide our Snowtrace API KEY
   },
 };
